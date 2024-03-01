@@ -2,7 +2,7 @@ from django.shortcuts import render
 from django.http import JsonResponse
 import openai
 
-openai_api_key = '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'
+openai_api_key = 'Your Open Api key'
 openai.api_key = openai_api_key
 
 def ask_openai(message):
