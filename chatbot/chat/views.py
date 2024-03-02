@@ -1,26 +1,24 @@
 from django.shortcuts import render
 from django.http import JsonResponse
-import openai
+# import genai
+import google.generativeai as genai
 
-openai_api_key = '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'
-openai.api_key = openai_api_key
+# Replace with your Google Cloud API key
+google_api_key = 'Your API'
+genai.configure(api_key=google_api_key)
 
-def ask_openai(message):
-    response = openai.completions.create(
-         model = "davinci-002",
-        messages=[
-            {"role": "system", "content": "You are an helpful assistant."},
-            {"role": "user", "content": message},
-        ]
-    )
-    print(response)
-    answer = response.choices[0].message.content.strip()
-    return answer 
-# Create your views here.
+
+def ask_gemini(message):
+    # Modify model name according to your specific Gemini model
+    model = genai.GenerativeModel('gemini-pro')  # Replace with your model name
+    response = model.generate_content( message)
+    return response.text.strip()
+
 
 def chat(request):
     if request.method == 'POST':
         message = request.POST.get('message')
-        response = ask_openai(message)
+        response = ask_gemini(message)
         return JsonResponse({'message': message, 'response': response})
-    return render (request, 'chatbot.html')
+    return render(request, 'chatbot.html')
+
