@@ -1,1 +1,1 @@
-A chat bot using ChatGpt API.
+A chat bot using Gemini API.
